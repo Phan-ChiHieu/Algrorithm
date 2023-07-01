@@ -1,82 +1,132 @@
-const arr = [2, 4, 3, 6, 5, 1];
+// 1 Selection Sort
+const arrSelectionSort = [2, 4, 3, 6, 5, 1];
+const selectionSort = function (nums) {
+  for (let i = 0; i < nums.length - 1; i++) {
+    let numIndex = i;
+    for (let j = i + 1; j < nums.length; j++) {
+      if (nums[i] > nums[j]) {
+        numIndex = j;
+      }
+    }
+    [nums[i], nums[numIndex]] = [nums[numIndex], nums[i]];
+  }
+  return nums;
+};
 
-// function seclectionSort(_arr) {
-//   for (var i = 0; i < _arr.length - 1; i++) {
-//     let numIndex = i;
-//     for (var j = i + 1; j < _arr.length; j++) {
-//       if (_arr[numIndex] > _arr[j]) {
-//         numIndex = j;
-//       }
-//     }
-//     [_arr[i], _arr[numIndex]] = [_arr[numIndex], _arr[i]];
-//   }
-//   return _arr;
-// }
+// console.log(">>>>>>", selectionSort(arrSelectionSort)); // >>>>>> [ 1, 2, 3, 4, 5, 6 ]
 
-// const result = seclectionSort(arr);
-// console.log(">>>>>", result);
+// 2 Bubble Sort
 
-// const bubbleSort = (_arr) => {
-//   for (let i = 0; i < _arr.length - 1; i++) {
-//     for (let j = 0; j < _arr.length; j++) {
-//       if (_arr[j] > _arr[j + 1]) {
-//         [_arr[j], _arr[j + 1]] = [_arr[j + 1], _arr[j]];
-//       }
-//     }
-//   }
-//   return _arr;
-// };
+const arrbubbleSort = [3, 2, 4, 1, 6, 5];
 
-// const result = bubbleSort(arr);
-// console.log(">>>>>", result);
-
-// function pascalsTriangle(numRow) {
-//   let array = [];
-//   if (numRow >= 1) array.push([1]);
-//   if (numRow >= 2) array.push([1, 1]);
-
-//   for (let i = 2; i < numRow; i++) {
-//     let first = 1;
-//     let last = 1;
-
-//     let prevArr = array[i - 1];
-//     if (prevArr.length === 2) {
-//       array.push([first, first + last, last]);
-//     } else {
-//       let left = 0;
-//       let right = 1;
-//       let add = [];
-//       while (right < prevArr.length) {
-//         add.push(prevArr[left] + prevArr[right]);
-//         left++;
-//         right++;
-//       }
-//       array.push([first, ...add, last]);
-//     }
-//   }
-
-//   return array;
-// }
-
-// const result = pascalsTriangle(10);
-
-// console.log("result", result);
-
-function insertionSort(array) {
-  for (let i = 1; i < array.length; i++) {
-    console.log(`array i ${i}`, array);
-
-    for (let j = i; j >= 0; j--) {
-      console.log("array outsite ??????????", array);
-      if (array[j] < array[j - 1]) {
-        [array[j], array[j - 1]] = [array[j - 1], array[j]];
-        console.log("array insite", array);
+const bubbleSort = function (nums) {
+  for (let i = 0; i < nums.length - 1; i++) {
+    for (let j = 0; j < nums.length; j++) {
+      if (nums[j] > nums[j + 1]) {
+        [nums[j], nums[j + 1]] = [nums[j + 1], nums[j]];
       }
     }
   }
-  return array;
-}
+  return nums;
+};
 
-const result = insertionSort(arr);
+// console.log(">>>>>>", bubbleSort(arrbubbleSort)); // >>>>>> [ 1, 2, 3, 4, 5, 6 ]
 
-// console.log("result", result);
+// 3 Pascal's Triangle
+
+const pascalTriangle = function (numRows) {
+  let newArr = [];
+
+  if (numRows >= 1) newArr.push([1]);
+  if (numRows >= 2) newArr.push([1, 1]);
+
+  for (let i = 2; i < numRows; i++) {
+    let first = 1;
+    let last = 1;
+    let prevArr = newArr[i - 1];
+    if (prevArr.length === 2) {
+      newArr.push([first, first + last, last]);
+    } else {
+      let left = 0;
+      let right = 1;
+      let add = [];
+
+      while (right < prevArr.length) {
+        add.push(prevArr[left] + prevArr[right]);
+        left++;
+        right++;
+      }
+      newArr.push([first, ...add, last]);
+    }
+  }
+
+  return newArr;
+};
+
+// console.log(">>>>", pascalTriangle(6));
+
+// 4 Insertion Sort
+
+const arrInsertionSort = [3, 2, 4, 1, 6, 5];
+
+const insertionSort = function (nums) {
+  for (let i = 0; i < nums.length - 1; i++) {
+    for (let j = 1; j < nums.length; j++) {
+      if (nums[j] < nums[j - 1]) {
+        [nums[j - 1], nums[j]] = [nums[j], nums[j - 1]];
+      }
+    }
+  }
+  return nums;
+};
+
+// console.log(">>>>", insertionSort(arrInsertionSort)); // >>>> [ 1, 2, 3, 4, 5, 6 ]
+
+// 5 Two Sum
+
+const arrTwoSum = [2, 7, 11, 15];
+const target = 9;
+
+const twoSum = function (nums, target) {
+  let map = new Map();
+
+  for (let i = 0; i < nums.length; i++) {
+    const compliment = target - nums[i];
+
+    if (map.has(compliment)) {
+      return [i, map.get(compliment)];
+    } else {
+      map.set(nums[i], i);
+    }
+  }
+};
+
+// console.log(">>>>>", twoSum(arrTwoSum, target));
+
+// 6 Best Time To Buy And Sell Stock
+
+const priceBestTimeTobuyAndSellStock = [7, 1, 5, 3, 6, 4];
+
+const bestTimeTobuyAndSellStock = function (price) {
+  let currMax = 0;
+  let currMin = price[0];
+
+  for (let i = 0; i < price.length - 1; i++) {
+    currMin = Math.min(currMin, price[i]);
+    currMax = Math.max(currMax, price[i] - currMin);
+  }
+  return currMax;
+};
+
+// console.log(">>>>>", bestTimeTobuyAndSellStock(priceBestTimeTobuyAndSellStock));
+
+// 7 Contains Duplicate
+
+const arrContainsDuplicate = [1, 2, 3, 4];
+
+const containsDuplicate = function (nums) {
+  let set = new Set(nums);
+  return set.size !== nums.length;
+};
+
+console.log(">>>>>", containsDuplicate(arrContainsDuplicate));
